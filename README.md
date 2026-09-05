@@ -2,8 +2,8 @@
 
 <div align="center">
 
-![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)
-![Express](https://img.shields.io/badge/Express-4-blue.svg)
+![Node.js](https://img.shields.io/badge/Node.js-24+-green.svg)
+![Express](https://img.shields.io/badge/Express-5-blue.svg)
 ![MongoDB](https://img.shields.io/badge/MongoDB-brightgreen.svg)
 
 **A RESTful API for a Food Delivery Application**
@@ -71,6 +71,11 @@ The application allows users to browse restaurants, categories, and food items w
 ## 📦 Installation
 
 ### 1. Clone the Repository
+
+```bash
+git clone https://
+cd Natours
+```
 
 ### 2. Install
 
