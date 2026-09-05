@@ -73,8 +73,8 @@ The application allows users to browse restaurants, categories, and food items w
 ### 1. Clone the Repository
 
 ```bash
-git clone https://
-cd Natours
+git clone https://github.com/fares-aym2n/Foodly.git
+cd Foodly
 ```
 
 ### 2. Install
