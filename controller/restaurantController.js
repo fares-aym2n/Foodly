@@ -20,8 +20,8 @@ const getTop5Rating = async (req, res, next) => {
 
 const getAllRestaurant = async (req, res, next) => {
   // 1)Filtering
-  const queryObj = {...req.query};
-  console.log(queryObj)
+  const queryObj = { ...req.query };
+  console.log(queryObj);
 
   const execludeField = ['sort', 'page', 'limit', 'fields'];
 
@@ -45,18 +45,18 @@ const getAllRestaurant = async (req, res, next) => {
 
   let query = Restaurant.find(JSON.parse(queryStr), {});
 
-  // 3)Sorting
-  if (req.query.sort) {
-    const sortBy = req.query.sort;
-    query = query.sort(sortBy);
-  }
-
   // 4)Filtering Fields
   if (req.query.fields) {
     const limitedField = req.query.fields.split(',').join(' ');
     query = query.select(limitedField);
   } else {
     query = query.select('-createdAt -updatedAt -__v');
+  }
+
+  // 3)Sorting
+  if (req.query.sort) {
+    const sortBy = req.query.sort;
+    query = query.sort(sortBy);
   }
 
   // 5)Pagination
@@ -79,7 +79,7 @@ const getAllRestaurant = async (req, res, next) => {
       resturants,
     },
   });
-};
+};;
 
 const getRestaurnat = async (req, res, next) => {
   const resturant = await Restaurant.findById(
