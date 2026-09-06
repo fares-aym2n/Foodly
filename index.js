@@ -10,7 +10,7 @@ const userRouter = require('./routers/user');
 const errorController = require('./controller/errorController');
 const AppError = require('./utils/AppError');
 const app = express();
-
+app.set('query parser', 'extended');
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());

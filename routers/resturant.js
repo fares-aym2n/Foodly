@@ -7,12 +7,20 @@ const router = express.Router();
 router.use(verifyToken);
 
 router
+  .route('/top-5-rating')
+  .get(
+    restaurantController.getTop5Rating,
+    restaurantController.getAllRestaurant,
+  );
+
+router
   .route('/')
   .get(restaurantController.getAllRestaurant)
   .post(
     allawedTo('admin'),
     restaurantController.createRestaurnt,
   );
+
 router
   .route('/:id')
   .get(restaurantController.getRestaurnat)
@@ -24,5 +32,8 @@ router
     allawedTo('admin'),
     restaurantController.deleteResturant,
   );
+
+
+
 
 module.exports = router;
