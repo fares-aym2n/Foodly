@@ -38,6 +38,7 @@ const RestaurantSchema = new mongoose.Schema(
     timestamps:true
   },
 );
+RestaurantSchema.index({ rating: 1 });
 
 RestaurantSchema.virtual('category', {
   ref: 'Category',
