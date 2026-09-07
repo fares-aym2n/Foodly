@@ -10,30 +10,18 @@ router
   .route('/top-5-rating')
   .get(
     restaurantController.getTop5Rating,
-    restaurantController.getAllRestaurant,
+    restaurantController.getAll,
   );
 
 router
   .route('/')
-  .get(restaurantController.getAllRestaurant)
-  .post(
-    allawedTo('admin'),
-    restaurantController.createRestaurnt,
-  );
+  .get(restaurantController.getAll)
+  .post(allawedTo('admin'), restaurantController.createOne);
 
 router
   .route('/:id')
-  .get(restaurantController.getRestaurnat)
-  .patch(
-    allawedTo('admin'),
-    restaurantController.updateResturant,
-  )
-  .delete(
-    allawedTo('admin'),
-    restaurantController.deleteResturant,
-  );
-
-
-
+  .get(restaurantController.getOne)
+  .patch(allawedTo('admin'), restaurantController.updateOne)
+  .delete(allawedTo('admin'), restaurantController.deleteOne);
 
 module.exports = router;

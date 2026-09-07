@@ -58,7 +58,17 @@ const login = async (req, res, next) => {
   });
 };
 
+const getMe = async (req, res, next) => {
+  const me = await User.findById(req.user._id);
+  res.status(200).json({
+    status: 'success',
+    data: me,
+  });
+  next();
+};
+
 module.exports = {
   register,
   login,
+  getMe,
 };

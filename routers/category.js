@@ -6,12 +6,12 @@ const router = app.Router();
 router.use(verifyToken);
 router
   .route('/')
-  .get(categoryController.getAllCategory)
-  .post(allawedTo('admin'), categoryController.createCategory);
+  .get(categoryController.getAll)
+  .post(allawedTo('admin'), categoryController.createOne);
 router
   .route('/:id')
-  .get(categoryController.getCategory)
-  .patch(allawedTo('admin'), categoryController.updateCategory)
-  .delete(allawedTo('admin'), categoryController.deleteCategory);
+  .get(categoryController.getOne)
+  .patch(allawedTo('admin'), categoryController.updateOne)
+  .delete(allawedTo('admin'), categoryController.deleteOne);
 
 module.exports = router;

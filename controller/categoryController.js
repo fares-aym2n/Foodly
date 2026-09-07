@@ -1,6 +1,5 @@
 const Category = require('../models/category');
-
-const AppError = require('../utils/AppError');
+const factory = require('./factoryController');
 
 const getAllCategory = async (req, res, next) => {
   const category = await Category.find({}, { __v: false });
@@ -12,76 +11,20 @@ const getAllCategory = async (req, res, next) => {
     },
   });
 };
+const getAll = factory.getAll(Category);
 
-const getCategory = async (req, res, next) => {
-  const category = await Category.findById(
-    req.params.id,
-  ).populate({
-    path:"food",
-    select:"name price rating"
-  });
-
-  if (!category) {
-    return next(
-      new AppError('No category found with this ID', 404),
-    );
-  }
-
-  return res.status(200).json({
-    data: category,
-  });
-};
-
-const createCategory = async (req, res, next) => {
-  const newCategory = await Category.create(req.body);
-
-  return res.status(201).json({
-    data: newCategory,
-  });
-};
-
-const updateCategory = async (req, res, next) => {
-  const category = await Category.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      returnDocument: 'after',
-      runValidators: true,
-    },
-  );
-
-  if (!category) {
-    return next(
-      new AppError('No category found with this ID', 404),
-    );
-  }
-
-  return res.status(200).json({
-    data: category,
-  });
-};
-
-const deleteCategory = async (req, res, next) => {
-  const category = await Category.findByIdAndDelete(
-    req.params.id,
-    {
-      runValidators: true,
-    },
-  );
-
-  if (!category) {
-    return next(
-      new AppError('No category found with this ID', 404),
-    );
-  }
-
-  return res.status(204).json();
-};
+const getOne = factory.getOne(Category, {
+  path: 'food',
+  select: 'name price rating',
+});
+const createOne = factory.createOne(Category);
+const updateOne = factory.updateOne(Category);
+const deleteOne = factory.deleteOne(Category);
 
 module.exports = {
-  getAllCategory,
-  getCategory,
-  createCategory,
-  updateCategory,
-  deleteCategory,
+  getAll,
+  getOne,
+  createOne,
+  updateOne,
+  deleteOne,
 };

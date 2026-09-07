@@ -1,8 +1,8 @@
-const path = require('path');
 const app = require('express');
 const multer = require('multer');
-const authController = require('../controller/authControoler');
+const authController = require('../controller/authController');
 const AppError = require('../utils/AppError');
+const verifyToken = require('../middleware/verifyToken');
 const router = app.Router();
 
 const distStorage = multer.diskStorage({
@@ -31,4 +31,5 @@ router
   .post(upload.single('avatar'), authController.register);
 router.route('/login').post(authController.login);
 
+router.route('/me').get(verifyToken, authController.getMe);
 module.exports = router;

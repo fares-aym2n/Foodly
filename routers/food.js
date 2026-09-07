@@ -6,12 +6,12 @@ const router = express.Router();
 router.use(verifyToken);
 router
   .route('/')
-  .get(foodController.getAllFood)
-  .post(allawedTo('admin'), foodController.createFood);
+  .get(foodController.getAll)
+  .post(allawedTo('admin'), foodController.createOne);
 router
   .route('/:id')
-  .get(foodController.getFood)
-  .patch(allawedTo('admin'), foodController.updateFood)
-  .delete(allawedTo('admin'), foodController.deleteFood);
+  .get(foodController.getOne)
+  .patch(allawedTo('admin'), foodController.updateOne)
+  .delete(allawedTo('admin'), foodController.deleteOne);
 
 module.exports = router;
