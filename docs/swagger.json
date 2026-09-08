@@ -129,8 +129,14 @@
             "items": {
               "type": "object",
               "properties": {
-                "_id": { "type": "string", "example": "660c1e5a4f3a2b1c8e9f0201" },
-                "name": { "type": "string", "example": "Seafood" }
+                "_id": {
+                  "type": "string",
+                  "example": "660c1e5a4f3a2b1c8e9f0201"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Seafood"
+                }
               }
             }
           }
@@ -162,8 +168,14 @@
             "items": {
               "type": "object",
               "properties": {
-                "_id": { "type": "string", "example": "660c1f8b4f3a2b1c8e9f0301" },
-                "name": { "type": "string", "example": "Grilled Salmon" },
+                "_id": {
+                  "type": "string",
+                  "example": "660c1f8b4f3a2b1c8e9f0301"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Grilled Salmon"
+                },
                 "price": { "type": "number", "example": 28 },
                 "rating": { "type": "number", "example": 4.9 }
               }
@@ -205,7 +217,10 @@
             "type": "object",
             "description": "Populated category details",
             "properties": {
-              "_id": { "type": "string", "example": "660c1e5a4f3a2b1c8e9f0201" },
+              "_id": {
+                "type": "string",
+                "example": "660c1e5a4f3a2b1c8e9f0201"
+              },
               "name": { "type": "string", "example": "Seafood" }
             }
           },
@@ -213,9 +228,18 @@
             "type": "object",
             "description": "Populated restaurant details",
             "properties": {
-              "_id": { "type": "string", "example": "660c1d2e4f3a2b1c8e9f0101" },
-              "name": { "type": "string", "example": "Gourmet Bistro" },
-              "address": { "type": "string", "example": "456 Ocean Drive, Alexandria" }
+              "_id": {
+                "type": "string",
+                "example": "660c1d2e4f3a2b1c8e9f0101"
+              },
+              "name": {
+                "type": "string",
+                "example": "Gourmet Bistro"
+              },
+              "address": {
+                "type": "string",
+                "example": "456 Ocean Drive, Alexandria"
+              }
             }
           }
         }
@@ -267,14 +291,14 @@
           "type": "integer",
           "default": 100,
           "minimum": 1,
-          "example": 10
+          "example": 5
         }
       },
       "sortQuery": {
         "name": "sort",
         "in": "query",
         "required": false,
-        "description": "Field to sort by. Prefix with '-' for descending order (e.g. `-rating` or `price,-rating`).",
+        "description": "Field to sort by. Prefix with '-' for descending order (e.g. `-rating`).",
         "schema": {
           "type": "string",
           "example": "-rating"
@@ -284,20 +308,20 @@
         "name": "fields",
         "in": "query",
         "required": false,
-        "description": "Comma-separated list of fields to include in the response (e.g. `name,price,rating`).",
+        "description": "Comma-separated list of fields to include in the response (e.g. `name,rating`).",
         "schema": {
           "type": "string",
-          "example": "name,price,rating"
+          "example": "name,rating"
         }
       },
       "addressQuery": {
         "name": "address",
         "in": "query",
         "required": false,
-        "description": "Case-insensitive substring search on address field.",
+        "description": "search on address field.",
         "schema": {
           "type": "string",
-          "example": "Alexandria"
+          "example": "Maadi"
         }
       }
     }
@@ -314,24 +338,29 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "password", "avatar"],
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "avatar"
+                ],
                 "properties": {
                   "name": {
                     "type": "string",
                     "description": "Full name of the user",
-                    "example": "Fares Ayman"
+                    "example": "fares ayman"
                   },
                   "email": {
                     "type": "string",
                     "format": "email",
                     "description": "Valid unique email address",
-                    "example": "fares@example.com"
+                    "example": "user@example.com"
                   },
                   "password": {
                     "type": "string",
                     "format": "password",
                     "description": "Account password (min 3 characters)",
-                    "example": "secret123"
+                    "example": "user1234"
                   },
                   "avatar": {
                     "type": "string",
@@ -415,12 +444,12 @@
                   "email": {
                     "type": "string",
                     "format": "email",
-                    "example": "fares@example.com"
+                    "example": "test1@gmail.com"
                   },
                   "password": {
                     "type": "string",
                     "format": "password",
-                    "example": "secret123"
+                    "example": "test1234"
                   }
                 }
               }
@@ -483,8 +512,14 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "message": { "type": "string", "example": "You Logged out!" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You Logged out!"
+                    }
                   }
                 }
               }
@@ -498,10 +533,7 @@
         "tags": ["Authentication & Users"],
         "summary": "Get current user profile",
         "description": "Retrieves the authenticated user's profile information based on decoded JWT token.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "responses": {
           "200": {
             "description": "Profile retrieved successfully",
@@ -510,8 +542,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/User" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
                   }
                 }
               }
@@ -521,7 +558,9 @@
             "description": "Missing, invalid, or expired token",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "examples": {
                   "invalidToken": {
                     "summary": "Invalid token",
@@ -549,24 +588,7 @@
         "tags": ["Restaurants"],
         "summary": "Get top 5 rated restaurants",
         "description": "Alias route that automatically applies `limit=5` and sorts descending by rating (`sort=-rating`). Also supports optional query parameters for field selection and regex address search.",
-        "parameters": [
-          { "$ref": "#/components/parameters/fieldsQuery" },
-          { "$ref": "#/components/parameters/addressQuery" },
-          {
-            "name": "isOpen",
-            "in": "query",
-            "required": false,
-            "description": "Filter by open/closed status",
-            "schema": { "type": "boolean", "example": true }
-          },
-          {
-            "name": "owner",
-            "in": "query",
-            "required": false,
-            "description": "Filter by owner name",
-            "schema": { "type": "string", "example": "Chef Ahmad" }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "List of top 5 rated restaurants",
@@ -575,14 +597,22 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "resutls": { "type": "integer", "example": 5 },
+                    "resutls": {
+                      "type": "integer",
+                      "example": 5
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "status": { "type": "string", "example": "success" },
+                        "status": {
+                          "type": "string",
+                          "example": "success"
+                        },
                         "doc": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/Restaurant" }
+                          "items": {
+                            "$ref": "#/components/schemas/Restaurant"
+                          }
                         }
                       }
                     }
@@ -605,33 +635,13 @@
           { "$ref": "#/components/parameters/sortQuery" },
           { "$ref": "#/components/parameters/fieldsQuery" },
           { "$ref": "#/components/parameters/addressQuery" },
-          {
-            "name": "rating",
-            "in": "query",
-            "required": false,
-            "description": "Exact rating filter",
-            "schema": { "type": "number", "minimum": 1, "maximum": 5, "example": 5 }
-          },
-          {
-            "name": "rating[gte]",
-            "in": "query",
-            "required": false,
-            "description": "Filter rating greater than or equal to value",
-            "schema": { "type": "number", "example": 4.5 }
-          },
+
           {
             "name": "rating[gt]",
             "in": "query",
             "required": false,
             "description": "Filter rating greater than value",
             "schema": { "type": "number", "example": 4 }
-          },
-          {
-            "name": "rating[lte]",
-            "in": "query",
-            "required": false,
-            "description": "Filter rating less than or equal to value",
-            "schema": { "type": "number", "example": 5 }
           },
           {
             "name": "rating[lt]",
@@ -646,20 +656,6 @@
             "required": false,
             "description": "Filter by open status",
             "schema": { "type": "boolean", "example": true }
-          },
-          {
-            "name": "owner",
-            "in": "query",
-            "required": false,
-            "description": "Filter by owner name",
-            "schema": { "type": "string", "example": "Chef Ahmad" }
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "description": "Filter by restaurant name",
-            "schema": { "type": "string", "example": "Gourmet Bistro" }
           }
         ],
         "responses": {
@@ -670,14 +666,22 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "resutls": { "type": "integer", "example": 1 },
+                    "resutls": {
+                      "type": "integer",
+                      "example": 1
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "status": { "type": "string", "example": "success" },
+                        "status": {
+                          "type": "string",
+                          "example": "success"
+                        },
                         "doc": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/Restaurant" }
+                          "items": {
+                            "$ref": "#/components/schemas/Restaurant"
+                          }
                         }
                       }
                     }
@@ -692,25 +696,52 @@
         "tags": ["Restaurants"],
         "summary": "Create a new restaurant",
         "description": "Creates a new restaurant. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "description", "address", "owner"],
+                "required": [
+                  "name",
+                  "description",
+                  "address",
+                  "owner"
+                ],
                 "properties": {
-                  "name": { "type": "string", "example": "Gourmet Bistro" },
-                  "description": { "type": "string", "example": "Authentic Mediterranean cuisine and fresh seafood" },
-                  "address": { "type": "string", "example": "456 Ocean Drive, Alexandria" },
-                  "phone": { "type": "string", "example": "+201012345678" },
-                  "rating": { "type": "number", "minimum": 1, "maximum": 5, "default": 5, "example": 4.8 },
-                  "isOpen": { "type": "boolean", "default": true, "example": true },
-                  "owner": { "type": "string", "example": "Chef Ahmad" }
+                  "name": {
+                    "type": "string",
+                    "example": "Gourmet Bistro"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Authentic Mediterranean cuisine and fresh seafood"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "456 Ocean Drive, Alexandria"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "+201012345678"
+                  },
+                  "rating": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "default": 5,
+                    "example": 4.8
+                  },
+                  "isOpen": {
+                    "type": "boolean",
+                    "default": true,
+                    "example": true
+                  },
+                  "owner": {
+                    "type": "string",
+                    "example": "Chef Ahmad"
+                  }
                 }
               }
             }
@@ -724,8 +755,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Restaurant" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Restaurant"
+                    }
                   }
                 }
               }
@@ -735,7 +771,9 @@
             "description": "Validation error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
                   "status": "faild",
                   "message": "Invalid Input Data. Restaurant must has a name. Restaurant must has a description"
@@ -747,7 +785,9 @@
             "description": "Unauthorized - Missing or invalid token",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -755,7 +795,9 @@
             "description": "Forbidden - User is not an admin",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
                   "status": "faild",
                   "message": "You are not authorized"
@@ -782,8 +824,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Restaurant" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Restaurant"
+                    }
                   }
                 }
               }
@@ -793,7 +840,9 @@
             "description": "Invalid ObjectId format (CastError)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
                   "status": "faild",
                   "message": "Inavalid _id:invalid-id"
@@ -805,7 +854,9 @@
             "description": "Restaurant not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
                   "status": "faild",
                   "message": "No document found with that ID"
@@ -819,10 +870,7 @@
         "tags": ["Restaurants"],
         "summary": "Update a restaurant",
         "description": "Updates fields of an existing restaurant. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/mongoIdParam" }
         ],
@@ -833,13 +881,36 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string", "example": "Gourmet Bistro (Updated)" },
-                  "description": { "type": "string", "example": "Renovated fine dining with fresh seafood" },
-                  "address": { "type": "string", "example": "456 Ocean Drive, Alexandria" },
-                  "phone": { "type": "string", "example": "+201099887766" },
-                  "rating": { "type": "number", "minimum": 1, "maximum": 5, "example": 4.9 },
-                  "isOpen": { "type": "boolean", "example": true },
-                  "owner": { "type": "string", "example": "Chef Ahmad" }
+                  "name": {
+                    "type": "string",
+                    "example": "Gourmet Bistro (Updated)"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Renovated fine dining with fresh seafood"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "456 Ocean Drive, Alexandria"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "+201099887766"
+                  },
+                  "rating": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "example": 4.9
+                  },
+                  "isOpen": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "owner": {
+                    "type": "string",
+                    "example": "Chef Ahmad"
+                  }
                 }
               }
             }
@@ -853,8 +924,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Restaurant" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Restaurant"
+                    }
                   }
                 }
               }
@@ -864,7 +940,9 @@
             "description": "Invalid input or ID format",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -872,7 +950,9 @@
             "description": "Unauthorized - Missing or invalid token",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -880,7 +960,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -888,7 +970,9 @@
             "description": "Restaurant not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -898,10 +982,7 @@
         "tags": ["Restaurants"],
         "summary": "Delete a restaurant",
         "description": "Deletes a restaurant document by ID. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/mongoIdParam" }
         ],
@@ -913,7 +994,9 @@
             "description": "Invalid ObjectId format",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -921,7 +1004,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -929,7 +1014,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -937,7 +1024,9 @@
             "description": "Restaurant not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -960,13 +1049,6 @@
             "required": false,
             "description": "Filter by category name",
             "schema": { "type": "string", "example": "Seafood" }
-          },
-          {
-            "name": "restaurant",
-            "in": "query",
-            "required": false,
-            "description": "Filter categories belonging to a specific restaurant (MongoDB ObjectId)",
-            "schema": { "type": "string", "example": "660c1d2e4f3a2b1c8e9f0101" }
           }
         ],
         "responses": {
@@ -977,14 +1059,22 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "resutls": { "type": "integer", "example": 1 },
+                    "resutls": {
+                      "type": "integer",
+                      "example": 1
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "status": { "type": "string", "example": "success" },
+                        "status": {
+                          "type": "string",
+                          "example": "success"
+                        },
                         "doc": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/Category" }
+                          "items": {
+                            "$ref": "#/components/schemas/Category"
+                          }
                         }
                       }
                     }
@@ -999,10 +1089,7 @@
         "tags": ["Categories"],
         "summary": "Create a new category",
         "description": "Creates a new category. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -1011,9 +1098,19 @@
                 "type": "object",
                 "required": ["name", "description"],
                 "properties": {
-                  "name": { "type": "string", "example": "Seafood" },
-                  "description": { "type": "string", "example": "Fresh fish, shrimp, and seafood specialties" },
-                  "restaurant": { "type": "string", "description": "ObjectId of associated restaurant", "example": "660c1d2e4f3a2b1c8e9f0101" }
+                  "name": {
+                    "type": "string",
+                    "example": "Seafood"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Fresh fish, shrimp, and seafood specialties"
+                  },
+                  "restaurant": {
+                    "type": "string",
+                    "description": "ObjectId of associated restaurant",
+                    "example": "660c1d2e4f3a2b1c8e9f0101"
+                  }
                 }
               }
             }
@@ -1027,8 +1124,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Category" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
                   }
                 }
               }
@@ -1038,7 +1140,9 @@
             "description": "Validation error",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
                   "status": "faild",
                   "message": "Invalid Input Data. Category must has a name. Category must have a description"
@@ -1050,7 +1154,9 @@
             "description": "Unauthorized - Missing or invalid token",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1058,7 +1164,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -1081,8 +1189,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Category" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
                   }
                 }
               }
@@ -1092,7 +1205,9 @@
             "description": "Invalid ObjectId format",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1100,7 +1215,9 @@
             "description": "Category not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -1110,10 +1227,7 @@
         "tags": ["Categories"],
         "summary": "Update a category",
         "description": "Updates an existing category. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/mongoIdParam" }
         ],
@@ -1124,9 +1238,18 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string", "example": "Seafood & Grill" },
-                  "description": { "type": "string", "example": "Fresh fish, shrimp, and charcoal-grilled dishes" },
-                  "restaurant": { "type": "string", "example": "660c1d2e4f3a2b1c8e9f0101" }
+                  "name": {
+                    "type": "string",
+                    "example": "Seafood & Grill"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Fresh fish, shrimp, and charcoal-grilled dishes"
+                  },
+                  "restaurant": {
+                    "type": "string",
+                    "example": "660c1d2e4f3a2b1c8e9f0101"
+                  }
                 }
               }
             }
@@ -1140,8 +1263,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Category" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
                   }
                 }
               }
@@ -1151,7 +1279,9 @@
             "description": "Validation error or invalid ID",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1159,7 +1289,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1167,7 +1299,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1175,7 +1309,9 @@
             "description": "Category not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -1185,10 +1321,7 @@
         "tags": ["Categories"],
         "summary": "Delete a category",
         "description": "Deletes a category by ID. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/mongoIdParam" }
         ],
@@ -1200,7 +1333,9 @@
             "description": "Invalid ObjectId format",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1208,7 +1343,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1216,7 +1353,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1224,7 +1363,9 @@
             "description": "Category not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -1246,35 +1387,17 @@
             "in": "query",
             "required": false,
             "description": "Filter by food name",
-            "schema": { "type": "string", "example": "Grilled Salmon" }
-          },
-          {
-            "name": "price",
-            "in": "query",
-            "required": false,
-            "description": "Exact price filter",
-            "schema": { "type": "number", "minimum": 5, "example": 28 }
-          },
-          {
-            "name": "price[gte]",
-            "in": "query",
-            "required": false,
-            "description": "Filter price greater than or equal to value",
-            "schema": { "type": "number", "example": 15 }
+            "schema": {
+              "type": "string",
+              "example": "Chicken Alfredo Pasta"
+            }
           },
           {
             "name": "price[gt]",
             "in": "query",
             "required": false,
             "description": "Filter price greater than value",
-            "schema": { "type": "number", "example": 10 }
-          },
-          {
-            "name": "price[lte]",
-            "in": "query",
-            "required": false,
-            "description": "Filter price less than or equal to value",
-            "schema": { "type": "number", "example": 50 }
+            "schema": { "type": "number", "example": 7 }
           },
           {
             "name": "price[lt]",
@@ -1284,32 +1407,11 @@
             "schema": { "type": "number", "example": 60 }
           },
           {
-            "name": "rating",
-            "in": "query",
-            "required": false,
-            "description": "Exact rating filter",
-            "schema": { "type": "number", "minimum": 1, "maximum": 5, "example": 4.9 }
-          },
-          {
-            "name": "rating[gte]",
-            "in": "query",
-            "required": false,
-            "description": "Filter rating greater than or equal to value",
-            "schema": { "type": "number", "example": 4 }
-          },
-          {
             "name": "rating[gt]",
             "in": "query",
             "required": false,
             "description": "Filter rating greater than value",
-            "schema": { "type": "number", "example": 4 }
-          },
-          {
-            "name": "rating[lte]",
-            "in": "query",
-            "required": false,
-            "description": "Filter rating less than or equal to value",
-            "schema": { "type": "number", "example": 5 }
+            "schema": { "type": "number", "example": 1 }
           },
           {
             "name": "rating[lt]",
@@ -1324,20 +1426,6 @@
             "required": false,
             "description": "Filter by availability status",
             "schema": { "type": "boolean", "example": true }
-          },
-          {
-            "name": "category",
-            "in": "query",
-            "required": false,
-            "description": "Filter by category ObjectId",
-            "schema": { "type": "string", "example": "660c1e5a4f3a2b1c8e9f0201" }
-          },
-          {
-            "name": "restaurant",
-            "in": "query",
-            "required": false,
-            "description": "Filter by restaurant ObjectId",
-            "schema": { "type": "string", "example": "660c1d2e4f3a2b1c8e9f0101" }
           }
         ],
         "responses": {
@@ -1348,14 +1436,22 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "resutls": { "type": "integer", "example": 1 },
+                    "resutls": {
+                      "type": "integer",
+                      "example": 1
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "status": { "type": "string", "example": "success" },
+                        "status": {
+                          "type": "string",
+                          "example": "success"
+                        },
                         "doc": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/Food" }
+                          "items": {
+                            "$ref": "#/components/schemas/Food"
+                          }
                         }
                       }
                     }
@@ -1370,10 +1466,7 @@
         "tags": ["Food"],
         "summary": "Create a new food item",
         "description": "Creates a new food item. Minimum price is $5. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "requestBody": {
           "required": true,
           "content": {
@@ -1382,13 +1475,41 @@
                 "type": "object",
                 "required": ["name", "description", "price"],
                 "properties": {
-                  "name": { "type": "string", "example": "Grilled Salmon" },
-                  "description": { "type": "string", "example": "Fresh Atlantic salmon with garlic herb butter and steamed asparagus" },
-                  "price": { "type": "number", "minimum": 5, "example": 28 },
-                  "rating": { "type": "number", "minimum": 1, "maximum": 5, "default": 5, "example": 4.9 },
-                  "isAvailable": { "type": "boolean", "default": true, "example": true },
-                  "category": { "type": "string", "description": "ObjectId of Category", "example": "660c1e5a4f3a2b1c8e9f0201" },
-                  "restaurant": { "type": "string", "description": "ObjectId of Restaurant", "example": "660c1d2e4f3a2b1c8e9f0101" }
+                  "name": {
+                    "type": "string",
+                    "example": "Grilled Salmon"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Fresh Atlantic salmon with garlic herb butter and steamed asparagus"
+                  },
+                  "price": {
+                    "type": "number",
+                    "minimum": 5,
+                    "example": 28
+                  },
+                  "rating": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "default": 5,
+                    "example": 4.9
+                  },
+                  "isAvailable": {
+                    "type": "boolean",
+                    "default": true,
+                    "example": true
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "ObjectId of Category",
+                    "example": "660c1e5a4f3a2b1c8e9f0201"
+                  },
+                  "restaurant": {
+                    "type": "string",
+                    "description": "ObjectId of Restaurant",
+                    "example": "660c1d2e4f3a2b1c8e9f0101"
+                  }
                 }
               }
             }
@@ -1402,8 +1523,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Food" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Food"
+                    }
                   }
                 }
               }
@@ -1413,7 +1539,9 @@
             "description": "Validation error (e.g. price below 5, missing name)",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
                 "example": {
                   "status": "faild",
                   "message": "Invalid Input Data. Price Must be atleast 5$"
@@ -1425,7 +1553,9 @@
             "description": "Unauthorized - Missing or invalid token",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1433,7 +1563,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -1456,8 +1588,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Food" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Food"
+                    }
                   }
                 }
               }
@@ -1467,7 +1604,9 @@
             "description": "Invalid ObjectId format",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1475,7 +1614,9 @@
             "description": "Food item not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -1485,10 +1626,7 @@
         "tags": ["Food"],
         "summary": "Update a food item",
         "description": "Updates fields of an existing food item. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/mongoIdParam" }
         ],
@@ -1499,13 +1637,37 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string", "example": "Grilled Atlantic Salmon" },
-                  "description": { "type": "string", "example": "Fresh Atlantic salmon with garlic herb butter and grilled veggies" },
-                  "price": { "type": "number", "minimum": 5, "example": 32 },
-                  "rating": { "type": "number", "minimum": 1, "maximum": 5, "example": 5 },
-                  "isAvailable": { "type": "boolean", "example": true },
-                  "category": { "type": "string", "example": "660c1e5a4f3a2b1c8e9f0201" },
-                  "restaurant": { "type": "string", "example": "660c1d2e4f3a2b1c8e9f0101" }
+                  "name": {
+                    "type": "string",
+                    "example": "Grilled Atlantic Salmon"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Fresh Atlantic salmon with garlic herb butter and grilled veggies"
+                  },
+                  "price": {
+                    "type": "number",
+                    "minimum": 5,
+                    "example": 32
+                  },
+                  "rating": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "example": 5
+                  },
+                  "isAvailable": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "660c1e5a4f3a2b1c8e9f0201"
+                  },
+                  "restaurant": {
+                    "type": "string",
+                    "example": "660c1d2e4f3a2b1c8e9f0101"
+                  }
                 }
               }
             }
@@ -1519,8 +1681,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "string", "example": "success" },
-                    "data": { "$ref": "#/components/schemas/Food" }
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Food"
+                    }
                   }
                 }
               }
@@ -1530,7 +1697,9 @@
             "description": "Validation error or invalid ID",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1538,7 +1707,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1546,7 +1717,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1554,7 +1727,9 @@
             "description": "Food item not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
@@ -1564,10 +1739,7 @@
         "tags": ["Food"],
         "summary": "Delete a food item",
         "description": "Deletes a food item by ID. Requires **admin** role.",
-        "security": [
-          { "bearerAuth": [] },
-          { "cookieAuth": [] }
-        ],
+        "security": [{ "bearerAuth": [] }, { "cookieAuth": [] }],
         "parameters": [
           { "$ref": "#/components/parameters/mongoIdParam" }
         ],
@@ -1579,7 +1751,9 @@
             "description": "Invalid ObjectId format",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1587,7 +1761,9 @@
             "description": "Unauthorized",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1595,7 +1771,9 @@
             "description": "Forbidden - Admin role required",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           },
@@ -1603,7 +1781,9 @@
             "description": "Food item not found",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
               }
             }
           }
