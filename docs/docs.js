@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const swaggerDocument = require('../docs/swagger.json');
+const swaggerDocument = require('./swagger.json');
 
 const swaggerHtml = `<!DOCTYPE html>
 <html lang="en">
