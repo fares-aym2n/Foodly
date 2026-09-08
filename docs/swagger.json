@@ -641,7 +641,7 @@
             "in": "query",
             "required": false,
             "description": "Filter rating greater than value",
-            "schema": { "type": "number", "example": 4 }
+            "schema": { "type": "number", "example": 2 }
           },
           {
             "name": "rating[lt]",
@@ -1048,7 +1048,7 @@
             "in": "query",
             "required": false,
             "description": "Filter by category name",
-            "schema": { "type": "string", "example": "Seafood" }
+            "schema": { "type": "string", "example": "Desserts" }
           }
         ],
         "responses": {
