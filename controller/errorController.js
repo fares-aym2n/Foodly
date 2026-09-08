@@ -20,7 +20,10 @@ const handelValidatorErrorDB = (err) => {
 };
 
 const handelTokenInvalid = () => {
-  return new AppError('Token is invalid', 401);
+  return new AppError(
+    'Token is invalid, Please log in and try again',
+    401,
+  );
 };
 
 const handelTokenExpired = () => {
@@ -31,55 +34,28 @@ const handelTokenExpired = () => {
 };
 
 const sendErrorDev = (err, req, res) => {
-  // A) API
-  if (req.originalUrl.startsWith('/api')) {
-    return res.status(err.statusCode).json({
-      status: err.status,
-      error: err,
-      message: err.message,
-      stack: err.stack,
-    });
-  }
-  // B) Renders
-  res.status(err.statusCode).render('error', {
-    title: 'Something went wrong!',
+  return res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
     message: err.message,
+    stack: err.stack,
   });
 };
 
 const sendErrorProd = (err, req, res) => {
-  // A) API
   //Operational Error
-  if (req.originalUrl.startsWith('/api')) {
-    if (err.isOperational) {
-      return res.status(err.statusCode).json({
-        status: err.status,
-        message: err.message,
-      });
-    }
-
-    //Programming Error
-    console.log('Error 💥', err);
-    return res.status(500).json({
-      status: 'faild',
-      message: 'some thing is wrong',
-    });
-  }
-  // B) Renders
-  // Operational Error
   if (err.isOperational) {
-    console.log('Error 💥', err);
-    return res.status(err.statusCode).render('error', {
-      title: 'Something went wrong!',
-      msg: err.message,
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
     });
   }
-  // Programming Error
-  console.log('Error 💥', err);
 
-  return res.status(err.statusCode).render('error', {
-    title: 'Something went wrong!',
-    msg: 'Please try again later.',
+  //Programming Error
+  console.log('Error 💥', err);
+  return res.status(500).json({
+    status: 'error',
+    message: 'Some thing is wrong. Please try again later!',
   });
 };
 

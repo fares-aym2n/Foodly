@@ -16,23 +16,6 @@ const getTop5Rating = async (req, res, next) => {
   next();
 };
 
-const getAllRestaurant = async (req, res, next) => {
-  const features = new featursAPI(Restaurant.find(), req.query)
-    .filter()
-    .limit()
-    .sort()
-    .paginate();
-
-  const resturants = await features.query;
-
-  res.status(200).json({
-    resutls: resturants.length,
-    data: {
-      resturants,
-    },
-  });
-};
-
 const getAll = factory.getAll(Restaurant);
 const getOne = factory.getOne(Restaurant, {
   path: 'category',

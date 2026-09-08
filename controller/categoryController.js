@@ -1,18 +1,7 @@
 const Category = require('../models/category');
 const factory = require('./factoryController');
 
-const getAllCategory = async (req, res, next) => {
-  const category = await Category.find({}, { __v: false });
-
-  res.status(200).json({
-    resutls: category.length,
-    data: {
-      category,
-    },
-  });
-};
 const getAll = factory.getAll(Category);
-
 const getOne = factory.getOne(Category, {
   path: 'food',
   select: 'name price rating',

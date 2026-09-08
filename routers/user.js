@@ -31,5 +31,9 @@ router
   .post(upload.single('avatar'), authController.register);
 router.route('/login').post(authController.login);
 
+router
+.route("/logout")
+.get(authController.logOut)
+
 router.route('/me').get(verifyToken, authController.getMe);
 module.exports = router;
