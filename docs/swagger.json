@@ -3,7 +3,7 @@
   "info": {
     "title": "Foodly API",
     "version": "1.0.0",
-    "description": "## 🍔 Foodly API Documentation\n\nWelcome to the official interactive documentation for **Foodly REST API** — a comprehensive food delivery backend built with Node.js, Express, MongoDB, and Mongoose"
+    "description": "## 🍔 Foodly API Documentation\n\nWelcome to the official interactive documentation for **Foodly REST API**"
   },
   "servers": [
     {
