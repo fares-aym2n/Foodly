@@ -1,7 +1,7 @@
 const app = require('express');
 const multer = require('multer');
 const authController = require('../controller/authController');
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/AppError.js');
 const verifyToken = require('../middleware/verifyToken');
 const router = app.Router();
 

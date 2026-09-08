@@ -1,4 +1,4 @@
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/AppError.js');
 
 const allowedTo = (...roles) => {
   return (req, res, next) => {

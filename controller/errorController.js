@@ -1,4 +1,4 @@
-const AppError = require('../utils/AppError');
+const AppError = require('../utils/AppError.js');
 const httpStatus = require('../utils/httpStatus');
 
 const handelCastErrorDB = (err) => {
