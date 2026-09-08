@@ -11,15 +11,24 @@ mongoose.connect(DB).then(() => {
   console.log('Connect Database Successfuly🚀');
 });
 
-const PORT = process.env.PORT;
-const server = app.listen(PORT, () => {
-  console.log(`Listening on Port ${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+let server;
+if (!process.env.VERCEL) {
+  server = app.listen(PORT, () => {
+    console.log(`Listening on Port ${PORT}`);
+  });
+}
 
 process.on('unhandledRejection', (err) => {
   console.log('UNHANDLED REJECTION💥 Shutting Down...');
   console.log(err.name, err.message);
-  server.close(() => {
+  if (server) {
+    server.close(() => {
+      process.exit(1);
+    });
+  } else {
     process.exit(1);
-  });
+  }
 });
+
+module.exports = app;
