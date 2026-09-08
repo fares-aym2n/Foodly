@@ -58,6 +58,7 @@ app.use(
           'https://swagger.io',
         ],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        connectSrc: ["'self'", 'https://foodly-api.vercel.app', 'http://localhost:3000', '*'],
       },
     },
   }),

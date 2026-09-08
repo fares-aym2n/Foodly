@@ -53,6 +53,21 @@ const swaggerHtml = `<!DOCTYPE html>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.js"></script>
   <script>
+    const DisableParameterAutoFillPlugin = function() {
+      return {
+        wrapComponents: {
+          parameterRow: function(Original, system) {
+            return class NoAutoFillParameterRow extends Original {
+              setDefaultValue() {
+                // Prevent Swagger UI from pre-filling parameter inputs with examples or defaults.
+                // Keeps the inputs empty until the user decides what to enter.
+              }
+            };
+          }
+        }
+      };
+    };
+
     window.onload = function() {
       const spec = ${JSON.stringify(swaggerDocument)};
       window.ui = SwaggerUIBundle({
@@ -64,12 +79,13 @@ const swaggerHtml = `<!DOCTYPE html>
           SwaggerUIStandalonePreset
         ],
         plugins: [
-          SwaggerUIBundle.plugins.DownloadUrl
+          SwaggerUIBundle.plugins.DownloadUrl,
+          DisableParameterAutoFillPlugin
         ],
         layout: "StandaloneLayout",
+        validatorUrl: null,
         persistAuthorization: true,
         displayRequestDuration: true,
-        filter: true,
         docExpansion: 'list'
       });
     };
