@@ -3,12 +3,7 @@
   "info": {
     "title": "Foodly API",
     "version": "1.0.0",
-    "description": "## 🍔 Foodly API Documentation\n\nWelcome to the official interactive documentation for **Foodly REST API** — a comprehensive food delivery backend built with Node.js, Express, MongoDB, and Mongoose.\n\n### 🔐 Authentication\nFoodly supports **JWT-based authentication** via either:\n- `Authorization: Bearer <token>` HTTP header (Recommended)\n- `token` HTTP-only Cookie\n\nTo test protected endpoints in Swagger UI, click **Authorize** at the top right and enter your Bearer token in the format: `Bearer <your_token>`.\n\n### 🔍 Advanced Query Features\nCollection endpoints (`/api/restaurant`, `/api/category`, `/api/food`) support powerful query capabilities via `featuresAPI`:\n- **Filtering**: Filter by exact field values (e.g. `isOpen=true`) or comparison operators using brackets:\n  - `gt` (greater than): `price[gt]=20`\n  - `gte` (greater than or equal): `rating[gte]=4.5`\n  - `lt` (less than): `price[lt]=50`\n  - `lte` (less than or equal): `price[lte]=30`\n- **Regex Search**: Search addresses with case-insensitive substring matching: `address=Cairo`.\n- **Sorting**: Order results using `sort`. Prefix with `-` for descending order (e.g. `sort=-rating` or `sort=price,-rating`).\n- **Field Limiting**: Select specific fields returned using comma-separated list: `fields=name,price,rating`. Excludes `__v`, `createdAt`, and `updatedAt` by default.\n- **Pagination**: Paginate responses with `page` (default `1`) and `limit` (default `100`).\n\n### ⚠️ Centralized Error Handling\nAll client and operational errors follow a uniform JSON structure:\n```json\n{\n  \"status\": \"faild\",\n  \"message\": \"Detailed error explanation\"\n}\n```\nInternal errors return status code 500 with `{\"status\": \"error\", \"message\": \"...\"}`.",
-    "contact": {
-      "name": "Fares Ayman",
-      "email": "fareshe73@gmail.com",
-      "url": "https://github.com/fares-aym2n/Foodly"
-    }
+    "description": "## 🍔 Foodly API Documentation\n\nWelcome to the official interactive documentation for **Foodly REST API** — a comprehensive food delivery backend built with Node.js, Express, MongoDB, and Mongoose"
   },
   "servers": [
     {

@@ -9,7 +9,6 @@ const swaggerHtml = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Foodly API Documentation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css" />
-  <link rel="icon" type="image/png" href="https://swagger.io/favicon.png" />
   <style>
     html {
       box-sizing: border-box;
