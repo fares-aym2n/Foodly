@@ -21,7 +21,7 @@ const handelValidatorErrorDB = (err) => {
 
 const handelTokenInvalid = () => {
   return new AppError(
-    'Token is invalid, Please log in and try again',
+    'Invalid Token. Please log in and try again',
     401,
   );
 };
