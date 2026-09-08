@@ -11,6 +11,11 @@ const foodRouter = require('./routers/food');
 const userRouter = require('./routers/user');
 const errorController = require('./controller/errorController');
 const AppError = require('./utils/AppError');
+const app = express();
+
+app.set('trust proxy', 1);
+app.set('query parser', 'extended');
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 100,
@@ -27,8 +32,6 @@ const limiter = rateLimit({
   },
 });
 
-const app = express();
-app.set('query parser', 'extended');
 app.use(helmet());
 app.use(limiter);
 app.use(cookieParser());
