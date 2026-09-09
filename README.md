@@ -18,6 +18,10 @@
 
 The application allows users to browse restaurants, categories, and food items with authentication and authorization.
 
+
+📋 API Documentation: https://foodly-api.vercel.app/api-docs/
+
+
 ---
 
 ## ✨ Features
