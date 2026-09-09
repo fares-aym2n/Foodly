@@ -4,9 +4,24 @@
     {
       "src": "server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "docsServer.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["node_modules/swagger-ui-dist/**"]
+      }
     }
   ],
   "routes": [
+    {
+      "src": "/api-docs(?:/(.*))?",
+      "dest": "docsServer.js"
+    },
+    {
+      "src": "/api-docs.json",
+      "dest": "docsServer.js"
+    },
     {
       "src": "/(.*)",
       "dest": "server.js"

@@ -13,6 +13,8 @@ const DisableDarkModePlugin = () => ({
 const DisableParameterAutoFillPlugin = function () {
   let allowBodyDefaults = false;
 
+  // This function is serialized by swagger-ui-express and executed in the
+  // browser, so every value it uses must live in this function's scope.
   const isLoginRequestBody = (props) => {
     const specPath =
       props.specPath?.toJS?.() || props.specPath || [];
