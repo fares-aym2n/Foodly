@@ -1,110 +1,146 @@
 const express = require('express');
+const path = require('path');
+const swaggerUi = require('swagger-ui-express');
 const router = express.Router();
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./Swagger');
 
-const swaggerHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Foodly API Documentation</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css" />
-  <style>
-    html {
-      box-sizing: border-box;
-      overflow: -moz-scrollbars-vertical;
-      overflow-y: scroll;
-    }
-    *, *:before, *:after {
-      box-sizing: inherit;
-    }
-    body {
-      margin: 0;
-      background: #fafafa;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    .swagger-ui .topbar {
-      display: none;
-    }
-    .swagger-ui .info {
-      margin: 25px 0;
-    }
-    .swagger-ui .info .title {
-      font-size: 32px;
-      color: #1b1b1b;
-    }
-    .swagger-ui .scheme-container {
-      margin: 20px 0;
-      padding: 15px 0;
-      background: #f7f7f7;
-      box-shadow: 0 1px 2px rgba(0,0,0,.1);
-    }
-    .swagger-ui .btn.authorize {
-      color: #49cc90;
-      border-color: #49cc90;
-    }
-    .swagger-ui .btn.authorize svg {
-      fill: #49cc90;
-    }
-  </style>
-</head>
-<body>
-  <div id="swagger-ui"></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-bundle.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui-standalone-preset.js"></script>
-  <script>
-    const DisableParameterAutoFillPlugin = function() {
-      return {
-        wrapComponents: {
-          parameterRow: function(Original, system) {
-            return class NoAutoFillParameterRow extends Original {
-              setDefaultValue() {
-                // Prevent Swagger UI from pre-filling parameter inputs with examples or defaults.
-                // Keeps the inputs empty until the user decides what to enter.
-              }
-            };
+const DisableDarkModePlugin = () => ({
+  components: {
+    DarkModeToggle: () => null,
+  },
+});
+
+const DisableParameterAutoFillPlugin = function () {
+  let allowBodyDefaults = false;
+
+  const isLoginRequestBody = (props) => {
+    const specPath =
+      props.specPath?.toJS?.() || props.specPath || [];
+    return specPath.includes('/api/user/login');
+  };
+
+  const isResourceMutationBody = (props) => {
+    const specPath =
+      props.specPath?.toJS?.() || props.specPath || [];
+    const resourceIndex = specPath.findIndex?.((part) =>
+      ['/api/category', '/api/food', '/api/restaurant'].some(
+        (path) => part.startsWith(path),
+      ),
+    );
+    const method =
+      resourceIndex >= 0
+        ? specPath[resourceIndex + 1]
+        : undefined;
+    return (
+      resourceIndex >= 0 && ['post', 'patch'].includes(method)
+    );
+  };
+
+  return {
+    wrapComponents: {
+      parameterRow: function (Original) {
+        return class NoAutoFillParameterRow extends Original {
+          setDefaultValue() {}
+
+          componentDidMount() {
+            if (this.props.isExecute) {
+              this.props.onChange(this.props.rawParam, null);
+            }
           }
-        }
-      };
-    };
 
-    window.onload = function() {
-      const spec = ${JSON.stringify(swaggerDocument)};
-      window.ui = SwaggerUIBundle({
-        spec: spec,
-        dom_id: '#swagger-ui',
-        deepLinking: true,
-        presets: [
-          SwaggerUIBundle.presets.apis,
-          SwaggerUIStandalonePreset
-        ],
-        plugins: [
-          SwaggerUIBundle.plugins.DownloadUrl,
-          DisableParameterAutoFillPlugin
-        ],
-        layout: "StandaloneLayout",
-        validatorUrl: null,
-        persistAuthorization: true,
-        displayRequestDuration: true,
-        docExpansion: 'list'
-      });
-    };
-  </script>
-</body>
-</html>`;
+          UNSAFE_componentWillReceiveProps(props) {
+            super.UNSAFE_componentWillReceiveProps(props);
+            if (!this.props.isExecute && props.isExecute) {
+              props.onChange(props.rawParam, null);
+            }
+          }
+        };
+      },
+      RequestBody: function (Original) {
+        return function ScopedRequestBody(props) {
+          allowBodyDefaults =
+            isLoginRequestBody(props) ||
+            isResourceMutationBody(props);
+          return Original(props);
+        };
+      },
+      RequestBodyEditor: function (Original) {
+        return class NoAutoFillRequestBodyEditor extends Original {
+          constructor(props, context) {
+            super(
+              allowBodyDefaults
+                ? props
+                : { ...props, defaultValue: undefined },
+              context,
+            );
+          }
+
+          UNSAFE_componentWillReceiveProps(props) {
+            super.UNSAFE_componentWillReceiveProps({
+              ...(allowBodyDefaults
+                ? props
+                : { ...props, defaultValue: undefined }),
+            });
+          }
+        };
+      },
+    },
+  };
+};
 
 router.get('/swagger.json', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerDocument);
 });
 
-router.get('/', (req, res) => {
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.send(swaggerHtml);
+router.get('/foodly-favicon.svg', (req, res) => {
+  res.sendFile(path.join(__dirname, 'foodly-favicon.svg'));
 });
+
+router.use('/', swaggerUi.serve);
+router.get(
+  '/',
+  swaggerUi.setup(swaggerDocument, {
+    customfavIcon: '/api-docs/foodly-favicon.svg',
+    customJsStr: `
+      (() => {
+        const clearRegisterBody = () => {
+          const operation = [...document.querySelectorAll('.opblock')].find(
+            (element) => element.textContent.includes('Register a new user'),
+          );
+          if (!operation) return;
+
+          operation.querySelectorAll('input:not([type="file"])').forEach((input) => {
+            const setter = Object.getOwnPropertyDescriptor(
+              HTMLInputElement.prototype,
+              'value',
+            ).set;
+            setter.call(input, '');
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          });
+        };
+
+        document.addEventListener('click', (event) => {
+          if (event.target.closest('.try-out__btn')) {
+            setTimeout(clearRegisterBody, 0);
+            setTimeout(clearRegisterBody, 100);
+          }
+        });
+      })();
+    `,
+    swaggerOptions: {
+      deepLinking: true,
+      persistAuthorization: true,
+      displayRequestDuration: true,
+      docExpansion: 'list',
+      validatorUrl: null,
+      plugins: [DisableParameterAutoFillPlugin, DisableDarkModePlugin],
+    },
+  }),
+);
 
 module.exports = {
   router,
   swaggerDocument,
-  swaggerHtml,
 };
